@@ -19,7 +19,9 @@ F.open = function(buf, enter, ...)
     local win
 
     -- TODO: Filter cmp and other windows, a lil buggy with telescope.
-    if cfg.zindex == 1001 then
+    -- if cfg.zindex == 1001 then
+    -- if vim.bo[buf].ft == 'cmp_menu' then
+    if vim.tbl_contains({'TelescopePrompt', 'cmp_menu', 'hydra_hint'}, vim.bo[buf].ft) then
         return _open_win(buf, enter, cfg)
     else
         win = _open_win(buf, enter, cfg_bak)

@@ -15,7 +15,7 @@ version: 0.0.15
   - [x] Add gif in readme.
   - [x] cleanup unwanted comments.
   - [ ] maybe extend to splits too.
-  - [ ] Get rid of telescope bug. (+ notify)
+  - [ ] Get rid of telescope bug. Add a filter function.
   - [ ] ease-out and ease-in (+maybe some others)
   - [x] Add resize functions too.
 

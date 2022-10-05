@@ -1,7 +1,9 @@
 # Flirt.nvim
 
 Animations for floating windows in neovim.<br />
-Was about to name this float.nvim but god said "no".
+Was about to name this float.nvim but god said "no". <br />
+
+TLDR: Animations + Resizing + Moving floating windows.
 
 > **WARNING**
 > Highly experimental.
