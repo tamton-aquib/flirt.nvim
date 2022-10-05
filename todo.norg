@@ -18,4 +18,5 @@ version: 0.0.15
   - [ ] Get rid of telescope bug. Add a filter function.
   - [ ] ease-out and ease-in (+maybe some others)
   - [x] Add resize functions too.
+  - [!] animation with blends.
 

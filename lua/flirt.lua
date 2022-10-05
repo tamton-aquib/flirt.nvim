@@ -4,6 +4,8 @@ F.opts = {
     close_command = 'Q',
     default_resize_mappings = true,
     default_move_mappings = true,
+    exclude_fts = { 'cmp_menu', 'TelescopePrompt', 'prompt', 'hydra_hint' },
+    custom_filter = function(buf, cfg) end,
 }
 local _open_win
 
@@ -13,15 +15,12 @@ F.open = function(buf, enter, ...)
 
     local done = {h=false, w=false}
 
-    cfg_bak["height"] = 1
-    cfg_bak["width"] = 1
-
+    cfg_bak["height"], cfg_bak["width"]= 1, 1
     local win
 
-    -- TODO: Filter cmp and other windows, a lil buggy with telescope.
-    -- if cfg.zindex == 1001 then
-    -- if vim.bo[buf].ft == 'cmp_menu' then
-    if vim.tbl_contains({'TelescopePrompt', 'cmp_menu', 'hydra_hint'}, vim.bo[buf].ft) then
+    if vim.tbl_contains(F.opts.exclude_fts, vim.bo[buf].ft)
+        or F.opts.custom_filter(buf, cfg) then
+
         return _open_win(buf, enter, cfg)
     else
         win = _open_win(buf, enter, cfg_bak)
@@ -109,7 +108,7 @@ F.setup = function(opts)
         vim.api.nvim_open_win = F.open
     end
 
-    vim.api.nvim_create_user_command(F.opts.close_command, F.close, {})
+    vim.api.nvim_create_user_command(F.opts.close_command or 'Q', F.close, {})
 
     if opts.default_move_mappings then
         vim.keymap.set('n', '<C-down>', function() F.move("down") end, {})
