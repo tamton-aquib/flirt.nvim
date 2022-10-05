@@ -4,7 +4,7 @@ Animations for floating windows in neovim.<br />
 Was about to name this float.nvim but god said "no".
 
 > **WARNING**
-> Highly experimental. <br />
+> Highly experimental.
 > Overrides the default `nvim_open_win` to achieve the open animation effect.
 
 ### Showcase
@@ -53,5 +53,5 @@ vim.keymap.set('n', '<leader><up>', function() f.move("up") end, {}) -- etc
 
 ### Credits
 - [aloof](https://github.com/vsedov) for the idea.
-- [vhyrro](https://github.com/vsedov) for helping.
+- [vhyrro](https://github.com/vhyrro) for helping.
 - [bryant](https://github.com/bryant-the-coder/) for the name.
