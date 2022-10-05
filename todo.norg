@@ -1,0 +1,21 @@
+@document.meta
+title: todo
+description: A todo list for flirt.nvim.
+authors: tamton-aquib
+categories: neovim-plugin
+created: 2022-10-05
+version: 0.0.15
+@end
+
+* TODOS
+  - [x] user config options inside setup.
+  - [ ] cleanify open().
+  - [ ] cleanify close().
+  - [!] sanitize setup().
+  - [x] Add gif in readme.
+  - [x] cleanup unwanted comments.
+  - [ ] maybe extend to splits too.
+  - [ ] Get rid of telescope bug. (+ notify)
+  - [ ] ease-out and ease-in (+maybe some others)
+  - [x] Add resize functions too.
+
