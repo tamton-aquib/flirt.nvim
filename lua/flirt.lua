@@ -110,14 +110,14 @@ F.setup = function(opts)
 
     vim.api.nvim_create_user_command(F.opts.close_command or 'Q', F.close, {})
 
-    if opts.default_move_mappings then
+    if F.opts.default_move_mappings then
         vim.keymap.set('n', '<C-down>', function() F.move("down") end, {})
         vim.keymap.set('n', '<C-up>', function()  F.move("up") end, {})
         vim.keymap.set('n', '<C-left>', function() F.move("left") end, {})
         vim.keymap.set('n', '<C-right>', function()  F.move("right") end, {})
     end
 
-    if opts.default_resize_mappings then
+    if F.opts.default_resize_mappings then
         vim.keymap.set('n', '<A-up>', '<cmd>res -1<cr>', {})
         vim.keymap.set('n', '<A-down>', '<cmd>res +1<cr>', {})
         vim.keymap.set('n', '<A-left>', '<cmd>vert res -1<cr>', {})
