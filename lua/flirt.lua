@@ -28,12 +28,11 @@ F.open = function(buf, enter, ...)
 
     local timer = vim.loop.new_timer()
     timer:start(50, 10, vim.schedule_wrap(function()
-        if done.w and done.h then
+        if (done.w and done.h) or not vim.api.nvim_win_is_valid(win) then
             timer:stop()
             return
         end
 
-        if not vim.api.nvim_win_is_valid(win) then return end
         local config = vim.api.nvim_win_get_config(win)
 
         if config["height"] >= cfg.height then
