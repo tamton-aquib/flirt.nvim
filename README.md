@@ -5,7 +5,7 @@ Was about to name this float.nvim but god said "no". <br />
 
 TLDR: Animations + Resizing + Moving floating windows.
 
-> **WARNING**
+> **Warning**
 > Highly experimental.
 > Overrides the default `nvim_open_win` to achieve the open animation effect.
 

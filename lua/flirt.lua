@@ -26,8 +26,10 @@ F.open = function(buf, enter, ...)
         win = _open_win(buf, enter, cfg_bak)
     end
 
+    vim.api.nvim_win_set_option(win, 'wrap', false)
+
     local timer = vim.loop.new_timer()
-    timer:start(50, 10, vim.schedule_wrap(function()
+    timer:start(0, 10, vim.schedule_wrap(function()
         if (done.w and done.h) or not vim.api.nvim_win_is_valid(win) then
             timer:stop()
             return
