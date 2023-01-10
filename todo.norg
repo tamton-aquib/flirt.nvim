@@ -7,16 +7,15 @@ created: 2022-10-05
 version: 0.0.15
 @end
 
-* TODOS
-  - [x] user config options inside setup.
-  - [ ] cleanify open().
-  - [ ] cleanify close().
-  - [!] sanitize setup().
-  - [x] Add gif in readme.
-  - [x] cleanup unwanted comments.
-  - [ ] maybe extend to splits too.
-  - [ ] Get rid of telescope bug. Add a filter function.
-  - [ ] ease-out and ease-in (+maybe some others)
-  - [x] Add resize functions too.
-  - [!] animation with blends.
-
+*  TODOS
+   - (x) user config options inside setup.
+   - ( ) cleanify open().
+   - ( ) cleanify close().
+   - (!) sanitize setup().
+   - (x) Add gif in readme.
+   - (x) cleanup unwanted comments.
+   - ( ) maybe extend to splits too.
+   - ( ) Get rid of telescope bug. Add a filter function.
+   - ( ) ease-out and ease-in (+maybe some others)
+   - (x) Add resize functions too.
+   - (!) animation with blends.
