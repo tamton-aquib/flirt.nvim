@@ -4,10 +4,12 @@ F.opts = {
     close_command = 'Q',
     default_resize_mappings = true,
     default_move_mappings = true,
+    default_mouse_mappings = true,
     exclude_fts = { 'cmp_menu', 'TelescopePrompt', 'prompt', 'hydra_hint' },
     custom_filter = function(buf, cfg) end,
 }
 local _open_win
+local w, r, c
 
 F.open = function(buf, enter, ...)
     local cfg = ({...})[1]
@@ -121,6 +123,27 @@ F.setup = function(opts)
         vim.keymap.set('n', '<A-down>', '<cmd>res +1<cr>', {})
         vim.keymap.set('n', '<A-left>', '<cmd>vert res -1<cr>', {})
         vim.keymap.set('n', '<A-right>', '<cmd>vert res +1<cr>', {})
+    end
+
+    if F.opts.default_mouse_mappings then
+        vim.keymap.set('n', '<LeftDrag>', function()
+            local info = vim.fn.getmousepos()
+            if not w then
+                w = info.winid
+                r = info.winrow
+                c = info.wincol
+            end
+
+            local cfg = vim.api.nvim_win_get_config(w)
+            cfg["row"][false] = info.screenrow - r
+            cfg["col"][false] = info.screencol - c
+            vim.api.nvim_win_set_config(w, cfg)
+        end, {})
+
+        vim.keymap.set({'n', 'v', 'i'}, '<LeftRelease>', function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
+            w = nil
+        end, {})
     end
 end
 

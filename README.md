@@ -31,8 +31,9 @@ require("flirt").setup()
 require("flirt").setup {
     override_open = true, -- experimental
     close_command = 'Q',
-    default_move_mappings = true, -- <C-arrows> to move floats
+    default_move_mappings = true,   -- <C-arrows> to move floats
     default_resize_mappings = true, -- <A-arrows> to resize floats
+    default_mouse_mappings = true,  -- Drag floats with mouse
     exclude_fts = {'notify', 'cmp_menu'},
     custom_filter = function(buffer, win_config)
         return vim.bo[buffer].filetype == 'cmp_menu' -- avoids animation
@@ -52,10 +53,10 @@ vim.keymap.set('n', '<leader><up>', function() f.move("up") end, {}) -- etc
 </details>
 
 ### NOTES
-- Its a single file with approximately 100LOC
+- Its a single file with approximately 200LOC
 - Contributions are welcome for improvement.
 - Extracted from [stuff.nvim](https://github.com/tamton-aquib/stuff.nvim)
-- Might work well with [hydra.nvim](https://github.com/anuvyklack/hydra.nvim), havent checked.
+- Might work well with [hydra.nvim](https://github.com/anuvyklack/hydra.nvim), haven't checked.
 
 ### Credits
 - [aloof](https://github.com/vsedov) for the idea.
