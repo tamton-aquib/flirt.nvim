@@ -56,13 +56,13 @@ end
 
 F.close = function()
     local conf = vim.api.nvim_win_get_config(0)
-    local done = {w=false, h=false}
+    local done = { w=false, h=false }
     if conf.relative == "" then return end
 
     local timer = vim.loop.new_timer()
-    timer:start(100, 10, vim.schedule_wrap(function()
+    timer:start(100, 5, vim.schedule_wrap(function()
         if done.h and done.w then
-            vim.api.nvim_win_close(0, {force=true})
+            pcall(vim.api.nvim_win_close, 0, {force=true})
             timer:stop()
             return
         end
@@ -128,6 +128,8 @@ F.setup = function(opts)
     if F.opts.default_mouse_mappings then
         vim.keymap.set('n', '<LeftDrag>', function()
             local info = vim.fn.getmousepos()
+            if vim.fn.win_gettype(info.winid) ~= "popup" then return end
+
             if not w then
                 w = info.winid
                 r = info.winrow
