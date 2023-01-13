@@ -9,7 +9,7 @@ F.opts = {
     custom_filter = function(buf, cfg) end,
 }
 local _open_win
-local w, r, c
+local w, r, c, is_popup
 
 F.open = function(buf, enter, ...)
     local cfg = ({...})[1]
@@ -128,7 +128,13 @@ F.setup = function(opts)
     if F.opts.default_mouse_mappings then
         vim.keymap.set('n', '<LeftDrag>', function()
             local info = vim.fn.getmousepos()
-            if vim.fn.win_gettype(info.winid) ~= "popup" then return end
+            if not is_popup then
+                if vim.fn.win_gettype(info.winid) == "popup" then
+                    is_popup = true
+                else
+                    return
+                end
+            end
 
             if not w then
                 w = info.winid
@@ -145,6 +151,7 @@ F.setup = function(opts)
         vim.keymap.set({'n', 'v', 'i'}, '<LeftRelease>', function()
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
             w = nil
+            is_popup = nil
         end, {})
     end
 end
