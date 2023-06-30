@@ -126,7 +126,7 @@ F.setup = function(opts)
     end
 
     if F.opts.default_mouse_mappings then
-        vim.keymap.set('n', '<LeftDrag>', function()
+        local on_drag = function()
             local info = vim.fn.getmousepos()
             if not is_popup then
                 if vim.fn.win_gettype(info.winid) == "popup" then
@@ -146,13 +146,28 @@ F.setup = function(opts)
             cfg["row"][false] = info.screenrow - r
             cfg["col"][false] = info.screencol - c
             vim.api.nvim_win_set_config(w, cfg)
-        end, {})
+        end
 
-        vim.keymap.set({'n', 'v', 'i'}, '<LeftRelease>', function()
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
+        local on_release = function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
             w = nil
             is_popup = nil
-        end, {})
+        end
+
+        if vim.on_key and vim.keycode then
+            local drg = vim.keycode("<LeftDrag>")
+            local rel = vim.keycode("<LeftRelease>")
+            vim.on_key(function(k)
+            if k == drg then
+                on_drag()
+            elseif k == rel then
+                on_release()
+            end
+          end)
+        else
+            vim.keymap.set("n", "<LeftDrag>", on_drag, {})
+            vim.keymap.set({ "n", "v", "i" }, "<LeftRelease>", on_release, {})
+        end
     end
 end
 
