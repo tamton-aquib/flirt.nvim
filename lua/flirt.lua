@@ -7,6 +7,7 @@ F.opts = {
     default_mouse_mappings = true,
     exclude_fts = { 'cmp_menu', 'TelescopePrompt', 'prompt', 'hydra_hint' },
     custom_filter = function(buf, cfg) end,
+    speed = 5,
 }
 local _open_win
 local w, r, c, is_popup
@@ -28,8 +29,14 @@ F.open = function(buf, enter, ...)
         win = _open_win(buf, enter, cfg_bak)
     end
 
+    if F.opts.speed < 1 then
+        vim.notify("Speed should be above 1ms!")
+        F.opts.speed = 1
+    end
+
+    -- TODO: fade in/out animations
     local timer = vim.loop.new_timer()
-    timer:start(0, 5, vim.schedule_wrap(function()
+    timer:start(0, F.opts.speed, vim.schedule_wrap(function()
         if (done.w and done.h) or not vim.api.nvim_win_is_valid(win) then
             timer:stop()
             return
