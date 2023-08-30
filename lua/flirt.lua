@@ -7,7 +7,7 @@ F.opts = {
     default_mouse_mappings = true,
     exclude_fts = { 'cmp_menu', 'TelescopePrompt', 'prompt', 'hydra_hint' },
     custom_filter = function(buf, cfg) end,
-    speed = 5,
+    speed = 95,
 }
 local _open_win
 local w, r, c, is_popup
@@ -27,11 +27,6 @@ F.open = function(buf, enter, ...)
         return _open_win(buf, enter, cfg)
     else
         win = _open_win(buf, enter, cfg_bak)
-    end
-
-    if F.opts.speed < 1 then
-        vim.notify("Speed should be above 1ms!")
-        F.opts.speed = 1
     end
 
     -- TODO: fade in/out animations
@@ -56,6 +51,7 @@ F.open = function(buf, enter, ...)
             config["width"] = config["width"] + 1
         end
 
+        vim.wo[win].wrap = false
         vim.api.nvim_win_set_config(win, config)
     end))
     return win
@@ -114,6 +110,12 @@ F.setup = function(opts)
 
     if F.opts.override_open then
         vim.api.nvim_open_win = F.open
+    end
+    if F.opts.speed < 1 or F.opts.speed > 100 then
+        vim.notify("[flirt.nvim]: Speed should be in between 1 and 100!", 3)
+        F.opts.speed = 5
+    else
+        F.opts.speed = math.abs(101 - F.opts.speed)
     end
 
     vim.api.nvim_create_user_command(F.opts.close_command or 'Q', F.close, {})
