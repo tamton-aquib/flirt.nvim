@@ -1,7 +1,6 @@
 local F = {}
 F.opts = {
     override_open = true,
-    close_command = 'Q',
     default_resize_mappings = true,
     default_move_mappings = true,
     default_mouse_mappings = true,
@@ -26,6 +25,10 @@ F.open = function(buf, enter, ...)
 
         return _open_win(buf, enter, cfg)
     else
+        if cfg.split then
+            cfg.width = math.floor(vim.api.nvim_win_get_width(0) / 2)
+            cfg.height = math.floor(vim.api.nvim_win_get_height(0) / 2)
+        end
         win = _open_win(buf, enter, cfg_bak)
     end
 
@@ -117,8 +120,6 @@ F.setup = function(opts)
     else
         F.opts.speed = math.abs(101 - F.opts.speed)
     end
-
-    vim.api.nvim_create_user_command(F.opts.close_command or 'Q', F.close, {})
 
     if F.opts.default_move_mappings then
         vim.keymap.set('n', '<C-down>', function() F.move("down") end, {})
